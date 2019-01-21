@@ -40,7 +40,7 @@ public class SystemBaseInfoController {
      * 获取系统配置信息
      * @return
      */
-    @GetMapping("properties")
+    @GetMapping("jvm-properties")
     public Result getProperties() {
         Map<Object, Object> result = systemBaseInfoService.getProperties();
         return ResultTool.successData(result);

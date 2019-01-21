@@ -11,7 +11,6 @@ import java.util.Properties;
  * @author: tanghuibo aa18984850147@qq.com
  * @create: 2019-01-20 23:49
  **/
-@Service("systemBaseInfoService")
 public class SystemBaseInfoServiceImpl implements SystemBaseInfoService {
 
     /**
