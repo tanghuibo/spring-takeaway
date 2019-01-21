@@ -37,7 +37,7 @@ public class SpringBaseInfoController {
     }
 
     /**
-     * 获取容器中bean的信息
+     * 获取spring配置文件信息
      * @return
      */
     @GetMapping("spring-properties")
