@@ -26,15 +26,6 @@ public class SystemBaseInfoController {
 
     }
 
-    /**
-     * 获取内存信息
-     * @return
-     */
-    @GetMapping("memorySize")
-    public Result getMemorySize() {
-        return ResultTool.success();
-    }
-
 
     /**
      * 获取系统配置信息
