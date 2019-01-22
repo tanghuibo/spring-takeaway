@@ -1,11 +1,11 @@
-package huibo.github.springtakeawaybaseinfo.config;
+package io.github.tanghuibo.springtakeawaybaseinfo.config;
 
-import huibo.github.springtakeawaybaseinfo.controller.SpringBaseInfoController;
-import huibo.github.springtakeawaybaseinfo.controller.SystemBaseInfoController;
-import huibo.github.springtakeawaybaseinfo.service.SpringBaseInfoService;
-import huibo.github.springtakeawaybaseinfo.service.SystemBaseInfoService;
-import huibo.github.springtakeawaybaseinfo.service.impl.SpringBaseInfoServiceImpl;
-import huibo.github.springtakeawaybaseinfo.service.impl.SystemBaseInfoServiceImpl;
+import io.github.tanghuibo.springtakeawaybaseinfo.controller.SpringBaseInfoController;
+import io.github.tanghuibo.springtakeawaybaseinfo.controller.SystemBaseInfoController;
+import io.github.tanghuibo.springtakeawaybaseinfo.service.SpringBaseInfoService;
+import io.github.tanghuibo.springtakeawaybaseinfo.service.SystemBaseInfoService;
+import io.github.tanghuibo.springtakeawaybaseinfo.service.impl.SpringBaseInfoServiceImpl;
+import io.github.tanghuibo.springtakeawaybaseinfo.service.impl.SystemBaseInfoServiceImpl;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

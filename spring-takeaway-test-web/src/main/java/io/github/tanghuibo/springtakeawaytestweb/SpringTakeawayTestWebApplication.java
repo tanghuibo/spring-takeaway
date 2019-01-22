@@ -1,4 +1,4 @@
-package huibo.github.springtakeawaytestweb;
+package io.github.tanghuibo.springtakeawaytestweb;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

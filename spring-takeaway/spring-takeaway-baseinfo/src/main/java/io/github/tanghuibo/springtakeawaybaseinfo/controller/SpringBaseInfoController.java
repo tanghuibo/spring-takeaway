@@ -1,9 +1,9 @@
-package huibo.github.springtakeawaybaseinfo.controller;
+package io.github.tanghuibo.springtakeawaybaseinfo.controller;
 
-import huibo.github.result.entity.Result;
-import huibo.github.result.util.ResultTool;
-import huibo.github.springtakeawaybaseinfo.entity.vo.BeanInfo;
-import huibo.github.springtakeawaybaseinfo.service.SpringBaseInfoService;
+import io.github.tanghuibo.result.entity.Result;
+import io.github.tanghuibo.result.util.ResultTool;
+import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.BeanInfo;
+import io.github.tanghuibo.springtakeawaybaseinfo.service.SpringBaseInfoService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +17,7 @@ import java.util.Map;
  * @create: 2019-01-21 22:37
  **/
 @RestController
-@RequestMapping("takeaway_system")
+@RequestMapping("takeaway/spring")
 public class SpringBaseInfoController {
 
     SpringBaseInfoService springBaseInfoService;

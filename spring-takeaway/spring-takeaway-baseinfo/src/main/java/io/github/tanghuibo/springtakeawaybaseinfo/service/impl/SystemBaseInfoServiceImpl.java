@@ -1,6 +1,6 @@
-package huibo.github.springtakeawaybaseinfo.service.impl;
+package io.github.tanghuibo.springtakeawaybaseinfo.service.impl;
 
-import huibo.github.springtakeawaybaseinfo.service.SystemBaseInfoService;
+import io.github.tanghuibo.springtakeawaybaseinfo.service.SystemBaseInfoService;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;

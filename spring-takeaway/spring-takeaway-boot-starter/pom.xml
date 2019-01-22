@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>huibo.github</groupId>
+    <groupId>io.github.tanghuibo</groupId>
     <artifactId>spring-takeaway-boot-starter</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
@@ -12,7 +12,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>huibo.github</groupId>
+            <groupId>io.github.tanghuibo</groupId>
             <artifactId>spring-takeaway-baseinfo</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>

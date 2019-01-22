@@ -1,6 +1,6 @@
-package huibo.github.result.util;
+package io.github.tanghuibo.result.util;
 
-import huibo.github.result.entity.Result;
+import io.github.tanghuibo.result.entity.Result;
 
 import java.util.Properties;
 

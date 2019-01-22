@@ -1,6 +1,6 @@
-package huibo.github.springtakeawaybaseinfo.service;
+package io.github.tanghuibo.springtakeawaybaseinfo.service;
 
-import huibo.github.springtakeawaybaseinfo.entity.vo.BeanInfo;
+import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.BeanInfo;
 
 import java.util.List;
 import java.util.Map;

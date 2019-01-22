@@ -1,4 +1,4 @@
-package huibo.github.springtakeawaybaseinfo.entity.vo;
+package io.github.tanghuibo.springtakeawaybaseinfo.entity.vo;
 
 import lombok.Data;
 

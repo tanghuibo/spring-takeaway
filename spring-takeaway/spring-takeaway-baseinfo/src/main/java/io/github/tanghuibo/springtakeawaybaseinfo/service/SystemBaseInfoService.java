@@ -1,4 +1,4 @@
-package huibo.github.springtakeawaybaseinfo.service;
+package io.github.tanghuibo.springtakeawaybaseinfo.service;
 
 import java.util.Map;
 

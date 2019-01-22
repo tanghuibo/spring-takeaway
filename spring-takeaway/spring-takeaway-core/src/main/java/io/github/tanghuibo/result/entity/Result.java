@@ -1,4 +1,4 @@
-package huibo.github.result.entity;
+package io.github.tanghuibo.result.entity;
 
 import lombok.Data;
 

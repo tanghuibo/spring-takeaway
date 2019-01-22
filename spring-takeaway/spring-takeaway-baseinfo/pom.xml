@@ -8,7 +8,7 @@
 		<version>2.1.2.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>huibo.github</groupId>
+	<groupId>io.github.tanghuibo</groupId>
 	<artifactId>spring-takeaway-baseinfo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>spring-takeaway-baseinfo</name>
@@ -35,7 +35,7 @@
 			<version>1.2.54</version>
 		</dependency>
 		<dependency>
-			<groupId>huibo.github</groupId>
+			<groupId>io.github.tanghuibo</groupId>
 			<artifactId>spring-takeaway-core</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>

@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  huibo.github.springtakeawaybaseinfo.config.AutoBaseInfoConfig
+  io.github.tanghuibo.springtakeawaybaseinfo.config.AutoBaseInfoConfig

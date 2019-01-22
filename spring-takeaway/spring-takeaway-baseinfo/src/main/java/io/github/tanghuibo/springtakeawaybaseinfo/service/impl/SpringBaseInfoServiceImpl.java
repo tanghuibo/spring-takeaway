@@ -1,7 +1,7 @@
-package huibo.github.springtakeawaybaseinfo.service.impl;
+package io.github.tanghuibo.springtakeawaybaseinfo.service.impl;
 
-import huibo.github.springtakeawaybaseinfo.entity.vo.BeanInfo;
-import huibo.github.springtakeawaybaseinfo.service.SpringBaseInfoService;
+import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.BeanInfo;
+import io.github.tanghuibo.springtakeawaybaseinfo.service.SpringBaseInfoService;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.core.env.*;
 
