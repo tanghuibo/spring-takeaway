@@ -1,6 +1,5 @@
 package io.github.tanghuibo.springtakeawaybaseinfo.entity.vo;
 
-import com.jezhumble.javasysmon.CpuTimes;
 import lombok.Data;
 
 /**
