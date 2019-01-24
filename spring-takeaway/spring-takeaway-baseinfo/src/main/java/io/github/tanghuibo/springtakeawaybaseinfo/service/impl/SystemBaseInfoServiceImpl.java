@@ -2,9 +2,8 @@ package io.github.tanghuibo.springtakeawaybaseinfo.service.impl;
 
 import com.jezhumble.javasysmon.CpuTimes;
 import com.jezhumble.javasysmon.JavaSysMon;
-import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.JVMInfo;
+import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.JvmInfo;
 import io.github.tanghuibo.springtakeawaybaseinfo.service.SystemBaseInfoService;
-import org.springframework.stereotype.Service;
 
 import java.util.Map;
 import java.util.Properties;
@@ -31,9 +30,9 @@ public class SystemBaseInfoServiceImpl implements SystemBaseInfoService {
     }
 
     @Override
-    public JVMInfo getRunTimeInfo() {
+    public JvmInfo getRunTimeInfo() {
 
-        JVMInfo jvmInfo = new JVMInfo();
+        JvmInfo jvmInfo = new JvmInfo();
 
         jvmInfo.setCpuFrequencyInHz(javaSysMon.cpuFrequencyInHz());
         jvmInfo.setNumCpus(javaSysMon.numCpus());

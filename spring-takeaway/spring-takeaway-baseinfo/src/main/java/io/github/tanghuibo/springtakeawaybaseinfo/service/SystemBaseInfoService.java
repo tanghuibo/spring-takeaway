@@ -1,6 +1,6 @@
 package io.github.tanghuibo.springtakeawaybaseinfo.service;
 
-import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.JVMInfo;
+import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.JvmInfo;
 
 import java.util.Map;
 
@@ -21,5 +21,5 @@ public interface SystemBaseInfoService {
      * 获取jvm运行状态
      * @return
      */
-    JVMInfo getRunTimeInfo();
+    JvmInfo getRunTimeInfo();
 }

@@ -1,7 +1,7 @@
 package io.github.tanghuibo.springtakeawaybaseinfo.controller;
 import io.github.tanghuibo.result.entity.Result;
 import io.github.tanghuibo.result.util.ResultTool;
-import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.JVMInfo;
+import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.JvmInfo;
 import io.github.tanghuibo.springtakeawaybaseinfo.service.SystemBaseInfoService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +32,7 @@ public class SystemBaseInfoController {
      */
     @GetMapping("runtime-info")
     public Result getRunTimeInfo() {
-        JVMInfo jVMInfo = systemBaseInfoService.getRunTimeInfo();
+        JvmInfo jVMInfo = systemBaseInfoService.getRunTimeInfo();
         return ResultTool.successData(jVMInfo);
     }
 

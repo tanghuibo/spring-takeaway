@@ -8,7 +8,7 @@ import lombok.Data;
  * @create: 2019-01-25 04:46
  **/
 @Data
-public class JVMInfo {
+public class JvmInfo {
 
     /**
      * cpu频率
