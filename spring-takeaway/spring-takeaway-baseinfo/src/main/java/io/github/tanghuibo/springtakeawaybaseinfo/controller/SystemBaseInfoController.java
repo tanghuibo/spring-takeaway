@@ -1,7 +1,7 @@
 package io.github.tanghuibo.springtakeawaybaseinfo.controller;
-
 import io.github.tanghuibo.result.entity.Result;
 import io.github.tanghuibo.result.util.ResultTool;
+import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.JVMInfo;
 import io.github.tanghuibo.springtakeawaybaseinfo.service.SystemBaseInfoService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +18,7 @@ import java.util.Map;
 @RequestMapping("takeaway/jvm")
 public class SystemBaseInfoController {
 
+
     SystemBaseInfoService systemBaseInfoService;
 
     public SystemBaseInfoController(SystemBaseInfoService systemBaseInfoService) {
@@ -25,6 +26,15 @@ public class SystemBaseInfoController {
 
     }
 
+    /**
+     * 获取系统配置信息
+     * @return
+     */
+    @GetMapping("runtime-info")
+    public Result getRunTimeInfo() {
+        JVMInfo jVMInfo = systemBaseInfoService.getRunTimeInfo();
+        return ResultTool.successData(jVMInfo);
+    }
 
     /**
      * 获取系统配置信息

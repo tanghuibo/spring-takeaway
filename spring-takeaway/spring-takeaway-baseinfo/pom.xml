@@ -16,29 +16,33 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<javasysmon.version>0.3.4</javasysmon.version>
+		<spring-takeaway-core.version>0.0.1-SNAPSHOT</spring-takeaway-core.version>
+		<fastjson.version>1.2.54</fastjson.version>
+		<lombok.version>1.18.4</lombok.version>
 	</properties>
 
 	<dependencies>
 
-		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.4</version>
+			<version>${lombok.version}</version>
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
-			<version>1.2.54</version>
+			<version>${fastjson.version}</version>
 		</dependency>
+
 		<dependency>
 			<groupId>io.github.tanghuibo</groupId>
 			<artifactId>spring-takeaway-core</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${spring-takeaway-core.version}</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -48,6 +52,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.outr.javasysmon</groupId>
+			<artifactId>javasysmon_2.10</artifactId>
+			<version>${javasysmon.version}</version>
 		</dependency>
 	</dependencies>
 

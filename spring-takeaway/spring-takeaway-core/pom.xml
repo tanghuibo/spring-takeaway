@@ -8,12 +8,16 @@
     <artifactId>spring-takeaway-core</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
+    <properties>
+        <lombok.version>1.18.4</lombok.version>
+        <java.version>1.8</java.version>
+    </properties>
+
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.4</version>
+            <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

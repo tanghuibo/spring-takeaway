@@ -1,5 +1,8 @@
 package io.github.tanghuibo.springtakeawaybaseinfo.service.impl;
 
+import com.jezhumble.javasysmon.CpuTimes;
+import com.jezhumble.javasysmon.JavaSysMon;
+import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.JVMInfo;
 import io.github.tanghuibo.springtakeawaybaseinfo.service.SystemBaseInfoService;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +16,10 @@ import java.util.Properties;
  **/
 public class SystemBaseInfoServiceImpl implements SystemBaseInfoService {
 
+    JavaSysMon javaSysMon = new JavaSysMon();
+
+    volatile CpuTimes cpuTimes = javaSysMon.cpuTimes();
+
     /**
      * 获取基础配置信息
      * @return
@@ -21,5 +28,25 @@ public class SystemBaseInfoServiceImpl implements SystemBaseInfoService {
     public Map<Object, Object> getProperties() {
         Properties properties = System.getProperties();
         return properties;
+    }
+
+    @Override
+    public JVMInfo getRunTimeInfo() {
+
+        JVMInfo jvmInfo = new JVMInfo();
+
+        jvmInfo.setCpuFrequencyInHz(javaSysMon.cpuFrequencyInHz());
+        jvmInfo.setNumCpus(javaSysMon.numCpus());
+        jvmInfo.setMemoryFreeBytes(javaSysMon.physical().getFreeBytes());
+        jvmInfo.setMemoryTotalBytes(javaSysMon.physical().getTotalBytes());
+        jvmInfo.setOsName(javaSysMon.osName());
+        CpuTimes cpuTimes = javaSysMon.cpuTimes();
+
+        jvmInfo.setCpuUsage(cpuTimes.getCpuUsage(this.cpuTimes));
+        this.cpuTimes = cpuTimes;
+
+        return jvmInfo;
+
+
     }
 }
