@@ -13,6 +13,7 @@ public class ResultTool {
 
     /**
      * 返回成功
+     *
      * @return
      */
     public static Result success() {
@@ -22,16 +23,18 @@ public class ResultTool {
 
     /**
      * 返回成功
+     *
      * @param data
      * @param <DATA>
      * @return
      */
-    public static<DATA> Result<DATA> successData(DATA data) {
+    public static <DATA> Result<DATA> successData(DATA data) {
         return new Result(true, "", data);
     }
 
     /**
      * 返回失败
+     *
      * @param message
      * @return
      */

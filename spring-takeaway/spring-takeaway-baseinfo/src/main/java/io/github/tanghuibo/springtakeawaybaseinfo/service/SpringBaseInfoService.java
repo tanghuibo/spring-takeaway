@@ -1,6 +1,6 @@
 package io.github.tanghuibo.springtakeawaybaseinfo.service;
 
-import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.BeanInfo;
+import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.SpringBeanInfo;
 
 import java.util.List;
 import java.util.Map;
@@ -14,12 +14,14 @@ public interface SpringBaseInfoService {
 
     /**
      * 获取bean基本信息
+     *
      * @return
      */
-    List<BeanInfo> getBeans();
+    List<SpringBeanInfo> getSpringBeans();
 
     /**
      * 获取配置信息
+     *
      * @return
      */
     Map<String, Object> getProperties();

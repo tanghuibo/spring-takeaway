@@ -2,7 +2,7 @@ package io.github.tanghuibo.springtakeawaybaseinfo.controller;
 
 import io.github.tanghuibo.result.entity.Result;
 import io.github.tanghuibo.result.util.ResultTool;
-import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.BeanInfo;
+import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.SpringBeanInfo;
 import io.github.tanghuibo.springtakeawaybaseinfo.service.SpringBaseInfoService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,16 +28,18 @@ public class SpringBaseInfoController {
 
     /**
      * 获取容器中bean的信息
+     *
      * @return
      */
-    @GetMapping("beans")
-    public Result<List<BeanInfo>> getBeans() {
-        List<BeanInfo> beans = springBaseInfoService.getBeans();
+    @GetMapping("spring-beans")
+    public Result<List<SpringBeanInfo>> getBeans() {
+        List<SpringBeanInfo> beans = springBaseInfoService.getSpringBeans();
         return ResultTool.successData(beans);
     }
 
     /**
      * 获取spring配置文件信息
+     *
      * @return
      */
     @GetMapping("spring-properties")

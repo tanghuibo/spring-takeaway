@@ -1,6 +1,6 @@
 package io.github.tanghuibo.springtakeawaybaseinfo.service.impl;
 
-import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.BeanInfo;
+import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.SpringBeanInfo;
 import io.github.tanghuibo.springtakeawaybaseinfo.service.SpringBaseInfoService;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.core.env.*;
@@ -24,18 +24,18 @@ public class SpringBaseInfoServiceImpl implements SpringBaseInfoService {
     }
 
     @Override
-    public List<BeanInfo> getBeans() {
+    public List<SpringBeanInfo> getSpringBeans() {
         Iterator<String> beanNamesIterator = beanFactory.getBeanNamesIterator();
-        List<BeanInfo> list = new ArrayList<>(50);
+        List<SpringBeanInfo> list = new ArrayList<>(50);
         while (beanNamesIterator.hasNext()) {
             String beanName = beanNamesIterator.next();
             Object data = beanFactory.getBean(beanName);
             Class<?> beanClass = data.getClass();
-            BeanInfo beanInfo = new BeanInfo();
-            beanInfo.setBeanName(beanName);
-            beanInfo.setClassName(beanClass.getName());
-            beanInfo.setSimpleClassName(beanClass.getSimpleName());
-            list.add(beanInfo);
+            SpringBeanInfo springBeanInfo = new SpringBeanInfo();
+            springBeanInfo.setBeanName(beanName);
+            springBeanInfo.setClassName(beanClass.getName());
+            springBeanInfo.setSimpleClassName(beanClass.getSimpleName());
+            list.add(springBeanInfo);
         }
         return list;
     }
@@ -49,12 +49,12 @@ public class SpringBaseInfoServiceImpl implements SpringBaseInfoService {
         while (iterator.hasNext()) {
             PropertySource<?> next = iterator.next();
             Object source = next.getSource();
-            if(source instanceof LinkedHashMap) {
+            if (source instanceof LinkedHashMap) {
                 Map<String, Object> map = (Map) source;
                 Set<String> keySet = map.keySet();
-                for (String key: keySet) {
+                for (String key : keySet) {
                     Object value = map.get(key);
-                    result.put(key,value.toString());
+                    result.put(key, value.toString());
 
                 }
             }

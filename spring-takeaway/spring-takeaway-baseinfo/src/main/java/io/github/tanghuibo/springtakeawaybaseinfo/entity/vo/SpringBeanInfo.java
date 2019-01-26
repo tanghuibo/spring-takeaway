@@ -8,7 +8,7 @@ import lombok.Data;
  * @create: 2019-01-21 22:44
  **/
 @Data
-public class BeanInfo {
+public class SpringBeanInfo {
 
     /**
      * bean名称

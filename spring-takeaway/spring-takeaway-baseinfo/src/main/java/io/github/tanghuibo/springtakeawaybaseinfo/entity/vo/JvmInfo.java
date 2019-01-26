@@ -42,9 +42,10 @@ public class JvmInfo {
 
     /**
      * 内存使用情况
+     *
      * @return
      */
     public Float getMemoryUsage() {
-        return (float)( 1 - (memoryFreeBytes * 1.0 / memoryTotalBytes));
+        return (float) (1 - (memoryFreeBytes * 1.0 / memoryTotalBytes));
     }
 }
