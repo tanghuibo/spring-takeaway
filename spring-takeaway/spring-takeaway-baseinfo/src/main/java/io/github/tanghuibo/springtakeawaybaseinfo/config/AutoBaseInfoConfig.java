@@ -1,17 +1,19 @@
 package io.github.tanghuibo.springtakeawaybaseinfo.config;
 
+import io.github.tanghuibo.springtakeawaybaseinfo.controller.DataBaseInfoController;
 import io.github.tanghuibo.springtakeawaybaseinfo.controller.SpringBaseInfoController;
 import io.github.tanghuibo.springtakeawaybaseinfo.controller.SystemBaseInfoController;
+import io.github.tanghuibo.springtakeawaybaseinfo.service.DataBaseInfoService;
 import io.github.tanghuibo.springtakeawaybaseinfo.service.SpringBaseInfoService;
 import io.github.tanghuibo.springtakeawaybaseinfo.service.SystemBaseInfoService;
-import io.github.tanghuibo.springtakeawaybaseinfo.service.impl.SpringBaseInfoServiceImpl;
-import io.github.tanghuibo.springtakeawaybaseinfo.service.impl.SystemBaseInfoServiceImpl;
+import io.github.tanghuibo.springtakeawaybaseinfo.service.impl.*;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.core.env.Environment;
 import org.springframework.core.env.StandardEnvironment;
+
+import javax.sql.DataSource;
 
 /**
  * @description: 基础信息配置
@@ -41,5 +43,27 @@ public class AutoBaseInfoConfig {
     @Lazy
     public SpringBaseInfoController getSpringBaseInfoController(SpringBaseInfoService springBaseInfoService) {
         return new SpringBaseInfoController(springBaseInfoService);
+    }
+
+    @Bean
+    @Lazy
+    public DataBaseInfoService getDataBaseInfoService(DataSource dataSource, ConfigurableListableBeanFactory configurableListableBeanFactory) {
+        return new DataBaseInfoServiceImpl(dataSource, configurableListableBeanFactory);
+    }
+
+    @Bean
+    @Lazy
+    public DataBaseInfoController getDataBaseInfoController(DataBaseInfoService dataBaseInfoService) {
+        return new DataBaseInfoController(dataBaseInfoService);
+    }
+
+    @Bean("defaultDatabasetTanslateService")
+    public DefaultDatabasetTanslateServiceImpl getDefaultDatabasetTanslateServiceImpl() {
+        return new DefaultDatabasetTanslateServiceImpl();
+    }
+
+    @Bean("mysqlDatabasetTanslateService")
+    public MysqlDatabasetTanslateServiceImpl getMysqlDatabasetTanslateServiceImpl() {
+        return new MysqlDatabasetTanslateServiceImpl();
     }
 }
