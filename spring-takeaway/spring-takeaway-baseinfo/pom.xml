@@ -16,7 +16,6 @@
 
 	<properties>
 		<java.version>1.8</java.version>
-		<javasysmon.version>0.3.4</javasysmon.version>
 		<spring-takeaway-core.version>0.0.1-SNAPSHOT</spring-takeaway-core.version>
 		<fastjson.version>1.2.54</fastjson.version>
 		<lombok.version>1.18.4</lombok.version>
@@ -54,20 +53,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>com.outr.javasysmon</groupId>
-			<artifactId>javasysmon_2.10</artifactId>
-			<version>${javasysmon.version}</version>
-		</dependency>
 	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
 
 </project>

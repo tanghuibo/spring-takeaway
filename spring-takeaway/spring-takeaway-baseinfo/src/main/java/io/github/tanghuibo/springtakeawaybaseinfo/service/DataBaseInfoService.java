@@ -1,5 +1,6 @@
 package io.github.tanghuibo.springtakeawaybaseinfo.service;
 
+import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.SqlFieldInfo;
 import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.TableInfo;
 
 import java.sql.SQLException;
@@ -18,4 +19,12 @@ public interface DataBaseInfoService {
      * @throws SQLException
      */
     List<TableInfo> getTables() throws SQLException;
+
+    /**
+     * 获取表格字段
+     * @param tableName
+     * @throws SQLException
+     * @return
+     */
+    List<SqlFieldInfo> getFields(String tableName) throws SQLException;
 }

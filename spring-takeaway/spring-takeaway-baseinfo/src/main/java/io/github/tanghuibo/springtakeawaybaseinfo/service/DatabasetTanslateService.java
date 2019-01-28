@@ -1,9 +1,9 @@
 package io.github.tanghuibo.springtakeawaybaseinfo.service;
 
+import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.SqlFieldInfo;
 import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.TableInfo;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -35,4 +35,12 @@ public interface DatabasetTanslateService {
      * @return
      */
     List<TableInfo> getTableList(Connection connection);
+
+    /**
+     * 获取数据库字段名称
+     * @param connection
+     * @param tableName
+     * @return
+     */
+    List<SqlFieldInfo> getFields(Connection connection, String tableName);
 }

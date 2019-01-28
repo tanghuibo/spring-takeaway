@@ -2,6 +2,7 @@ package io.github.tanghuibo.springtakeawaybaseinfo.controller;
 import io.github.tanghuibo.result.entity.Result;
 import io.github.tanghuibo.result.util.ResultTool;
 import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.ClassInfo;
+import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.JarInfo;
 import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.JvmInfo;
 import io.github.tanghuibo.springtakeawaybaseinfo.service.SystemBaseInfoService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,5 +57,15 @@ public class SystemBaseInfoController {
     public Result getClassByClassLoader() {
         List<ClassInfo> classInfos = systemBaseInfoService.getClassByClassLoader();
         return ResultTool.successData(classInfos);
+    }
+
+    /**
+     * 获取系统配置信息
+     * @return
+     */
+    @GetMapping("jarList")
+    public Result getJarList() {
+        List<JarInfo> jarInfos = systemBaseInfoService.getJarList();
+        return ResultTool.successData(jarInfos);
     }
 }

@@ -24,6 +24,7 @@
 		<module>spring-takeaway-core</module>
 		<module>spring-takeaway-baseinfo</module>
 		<module>spring-takeaway-boot-starter</module>
+		<module>spring-takeaway-boot-ui</module>
 	</modules>
 
 </project>

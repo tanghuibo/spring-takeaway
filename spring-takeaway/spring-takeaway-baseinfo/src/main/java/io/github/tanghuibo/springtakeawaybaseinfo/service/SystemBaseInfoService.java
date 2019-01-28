@@ -1,6 +1,7 @@
 package io.github.tanghuibo.springtakeawaybaseinfo.service;
 
 import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.ClassInfo;
+import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.JarInfo;
 import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.JvmInfo;
 
 import java.util.List;
@@ -33,4 +34,10 @@ public interface SystemBaseInfoService {
      * @return
      */
     List<ClassInfo> getClassByClassLoader();
+
+    /**
+     * 获取jar包列表
+     * @return
+     */
+    List<JarInfo> getJarList();
 }

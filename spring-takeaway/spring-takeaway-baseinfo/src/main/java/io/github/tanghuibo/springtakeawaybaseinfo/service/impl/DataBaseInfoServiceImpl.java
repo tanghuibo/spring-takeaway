@@ -1,5 +1,6 @@
 package io.github.tanghuibo.springtakeawaybaseinfo.service.impl;
 
+import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.SqlFieldInfo;
 import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.TableInfo;
 import io.github.tanghuibo.springtakeawaybaseinfo.service.DataBaseInfoService;
 import io.github.tanghuibo.springtakeawaybaseinfo.service.DatabasetTanslateService;
@@ -65,6 +66,20 @@ public class DataBaseInfoServiceImpl implements DataBaseInfoService {
                 connection.close();
             }
         }
+    }
+
+    @Override
+    public List<SqlFieldInfo> getFields(String tableName) throws SQLException {
+        Connection connection = dataSource.getConnection();
+        try {
+            DatabasetTanslateService databasetTanslateService = getMatchDatabasetTanslateService(connection);
+            return databasetTanslateService.getFields(connection, tableName);
+        } finally {
+            if(connection != null) {
+                connection.close();
+            }
+        }
+
     }
 
     /**
