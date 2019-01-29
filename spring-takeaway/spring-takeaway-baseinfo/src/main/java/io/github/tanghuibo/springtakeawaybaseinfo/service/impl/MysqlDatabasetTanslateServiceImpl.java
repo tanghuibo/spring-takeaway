@@ -1,6 +1,5 @@
 package io.github.tanghuibo.springtakeawaybaseinfo.service.impl;
 
-import com.alibaba.fastjson.JSON;
 import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.SqlFieldInfo;
 import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.TableInfo;
 import io.github.tanghuibo.springtakeawaybaseinfo.service.DatabasetTanslateService;
