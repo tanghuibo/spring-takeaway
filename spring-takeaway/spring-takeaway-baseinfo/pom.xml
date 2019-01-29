@@ -19,6 +19,7 @@
 		<spring-takeaway-core.version>0.0.1-SNAPSHOT</spring-takeaway-core.version>
 		<fastjson.version>1.2.54</fastjson.version>
 		<lombok.version>1.18.4</lombok.version>
+		<freemarker.version>2.3.28</freemarker.version>
 	</properties>
 
 	<dependencies>
@@ -51,6 +52,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+			<version>${freemarker.version}</version>
 		</dependency>
 
 	</dependencies>

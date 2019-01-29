@@ -5,6 +5,8 @@ import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.TableInfo;
 import io.github.tanghuibo.springtakeawaybaseinfo.service.DataBaseInfoService;
 import io.github.tanghuibo.springtakeawaybaseinfo.service.DatabasetTanslateService;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -16,6 +18,8 @@ import java.util.stream.Collectors;
  * @author: tanghuibo aa18984850147@qq.com
  * @create: 2019-01-27 16:24
  **/
+@Service("dataBaseInfoService")
+@Lazy
 public class DataBaseInfoServiceImpl implements DataBaseInfoService {
 
     /**
@@ -44,7 +48,7 @@ public class DataBaseInfoServiceImpl implements DataBaseInfoService {
      * @param dataSource
      * @param configurableListableBeanFactory
      */
-    public DataBaseInfoServiceImpl(DataSource dataSource, ConfigurableListableBeanFactory configurableListableBeanFactory) {
+    public DataBaseInfoServiceImpl(@Lazy DataSource dataSource,@Lazy ConfigurableListableBeanFactory configurableListableBeanFactory) {
         this.dataSource = dataSource;
         this.configurableListableBeanFactory = configurableListableBeanFactory;
 

@@ -7,6 +7,8 @@ import io.github.tanghuibo.springtakeawaybaseinfo.service.DatabasetTanslateServi
 import io.github.tanghuibo.util.ClassUtil;
 import io.github.tanghuibo.util.DataBaseUtil;
 import io.github.tanghuibo.util.StringUtil;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -18,6 +20,8 @@ import java.util.Map;
  * @author: tanghuibo aa18984850147@qq.com
  * @create: 2019-01-27 18:40
  **/
+@Service("mysqlDatabasetTanslateService")
+@Lazy
 public class MysqlDatabasetTanslateServiceImpl implements DatabasetTanslateService {
 
 

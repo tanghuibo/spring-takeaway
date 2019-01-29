@@ -1,10 +1,12 @@
 package io.github.tanghuibo.springtakeawaybaseinfo.controller;
 import io.github.tanghuibo.result.entity.Result;
 import io.github.tanghuibo.result.util.ResultTool;
+import io.github.tanghuibo.springtakeawaybaseinfo.config.ConstantConfig;
 import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.ClassInfo;
 import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.JarInfo;
 import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.JvmInfo;
 import io.github.tanghuibo.springtakeawaybaseinfo.service.SystemBaseInfoService;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,13 +20,14 @@ import java.util.Map;
  * @create: 2019-01-20 23:35
  **/
 @RestController
-@RequestMapping("takeaway/jvm")
+@RequestMapping(ConstantConfig.CONTENT_PATH + "/jvm")
+@Lazy
 public class SystemBaseInfoController {
 
 
     SystemBaseInfoService systemBaseInfoService;
 
-    public SystemBaseInfoController(SystemBaseInfoService systemBaseInfoService) {
+    public SystemBaseInfoController(@Lazy SystemBaseInfoService systemBaseInfoService) {
         this.systemBaseInfoService = systemBaseInfoService;
 
     }

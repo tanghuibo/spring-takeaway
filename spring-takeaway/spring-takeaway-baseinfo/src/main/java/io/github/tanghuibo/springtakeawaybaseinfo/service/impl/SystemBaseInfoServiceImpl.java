@@ -7,6 +7,8 @@ import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.JarInfo;
 import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.JvmInfo;
 import io.github.tanghuibo.springtakeawaybaseinfo.service.SystemBaseInfoService;
 import io.github.tanghuibo.util.ClassUtil;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
 
 import java.lang.management.ManagementFactory;
 import java.util.*;
@@ -16,6 +18,8 @@ import java.util.*;
  * @author: tanghuibo aa18984850147@qq.com
  * @create: 2019-01-20 23:49
  **/
+@Service("systemBaseInfoService")
+@Lazy
 public class SystemBaseInfoServiceImpl implements SystemBaseInfoService {
 
     /**

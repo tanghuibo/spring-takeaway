@@ -3,7 +3,9 @@ package io.github.tanghuibo.springtakeawaybaseinfo.service.impl;
 import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.SpringBeanInfo;
 import io.github.tanghuibo.springtakeawaybaseinfo.service.SpringBaseInfoService;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.core.env.*;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
@@ -12,13 +14,15 @@ import java.util.*;
  * @author: tanghuibo aa18984850147@qq.com
  * @create: 2019-01-21 22:39
  **/
+@Service("springBaseInfoService")
+@Lazy
 public class SpringBaseInfoServiceImpl implements SpringBaseInfoService {
 
     private ConfigurableListableBeanFactory beanFactory;
 
     private StandardEnvironment environment;
 
-    public SpringBaseInfoServiceImpl(StandardEnvironment standardEnvironment, ConfigurableListableBeanFactory beanFactory) {
+    public SpringBaseInfoServiceImpl(StandardEnvironment standardEnvironment,@Lazy ConfigurableListableBeanFactory beanFactory) {
         this.environment = standardEnvironment;
         this.beanFactory = beanFactory;
     }
