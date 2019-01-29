@@ -3,8 +3,6 @@ package io.github.tanghuibo.springtakeawaybaseinfo.config;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
-import javax.sql.DataSource;
-
 /**
  * @description: 基础信息配置
  * @author: tanghuibo aa18984850147@qq.com
