@@ -12,7 +12,7 @@ import java.io.IOException;
 @SpringBootApplication
 public class SpringTakeawayTestWebApplication {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         SpringApplication.run(SpringTakeawayTestWebApplication.class, args);
 
     }
