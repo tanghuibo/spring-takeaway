@@ -16,10 +16,6 @@ public class TableInfo {
      */
     private String tableName;
 
-    /**
-     * 表格类型
-     */
-    private String type;
 
     /**
      * 备注

@@ -43,13 +43,24 @@ public class DataBaseInfoController {
 
     /**
      * 获取数据库中表格字段信息
-     *
+     * @param tableName 表格名称
      * @return
      */
     @GetMapping("fields")
     public Result<List<SqlFieldInfo>> getFields(String tableName) throws SQLException {
         List<SqlFieldInfo> beans = dataBaseInfoService.getFields(tableName);
         return ResultTool.successData(beans);
+    }
+
+    /**
+     * 获取数据库支持的数据库类型列表
+     *
+     * @return
+     */
+    @GetMapping("driver-list")
+    public Result<List<String>> getDbDriverList() throws SQLException {
+        List<String> dbTypeList = dataBaseInfoService.getDbDriverList();
+        return ResultTool.successData(dbTypeList);
     }
 
 }

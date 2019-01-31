@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+import io.github.tanghuibo.constant.ConstantCommand;
 import io.github.tanghuibo.springtakeawaybaseinfo.entity.GenerateMybatisConfig;
 import io.github.tanghuibo.springtakeawaybaseinfo.service.GeneratorCodeService;
 import io.github.tanghuibo.springtakeawaybaseinfo.service.MybatisPlusAutoGeneratorConfig;
@@ -12,11 +13,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -32,11 +28,26 @@ public class GeneratorCodeServiceImpl implements GeneratorCodeService {
     @Value("${spring.datasource.password:}")
     private String password;
 
+    @Value("${spring.datasource.driver-class-name:}")
+    private String driverClassName;
+
+    @Value("${spring.datasource.username:}")
+    private String username;
+
+    @Value("${spring.datasource.url:}")
+    private String url;
+
+
     /**
      * bean容器
      */
     private ConfigurableListableBeanFactory configurableListableBeanFactory;
 
+    /**
+     * mybatisPlusAutoGeneratorConfig
+     * 用于处理AutoGenerator
+     * @see AutoGenerator
+     */
     private volatile List<MybatisPlusAutoGeneratorConfig> mybatisPlusAutoGeneratorConfigs;
 
     public GeneratorCodeServiceImpl(ConfigurableListableBeanFactory configurableListableBeanFactory) {
@@ -48,8 +59,12 @@ public class GeneratorCodeServiceImpl implements GeneratorCodeService {
         AutoGenerator mpg = new AutoGenerator();
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
+        gc.setFileOverride(generateMybatisConfig.getFileOverride());
         gc.setOutputDir(generateMybatisConfig.getProjectPath());
         gc.setAuthor(generateMybatisConfig.getAuthor());
+        gc.setOpen(false);
+        gc.setBaseColumnList(true);
+        gc.setBaseResultMap(true);
         mpg.setGlobalConfig(gc);
 
         // 数据源配置
@@ -71,6 +86,8 @@ public class GeneratorCodeServiceImpl implements GeneratorCodeService {
         StrategyConfig strategy = new StrategyConfig();
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
+        strategy.setTablePrefix(generateMybatisConfig.getTablePrefix());
+        strategy.setFieldPrefix(generateMybatisConfig.getFieldPrefix());
         strategy.setEntityLombokModel(generateMybatisConfig.getEntityLombokModel());
         strategy.setRestControllerStyle(true);
         List<String> tableNames = generateMybatisConfig.getTableNames();
@@ -86,49 +103,35 @@ public class GeneratorCodeServiceImpl implements GeneratorCodeService {
     @Override
     public GenerateMybatisConfig getDefaultGenerateMybatisConfig() {
         GenerateMybatisConfig generateMybatisConfig = new GenerateMybatisConfig();
-        generateMybatisConfig.setAuthor(System.getProperty("user.name"));
+        generateMybatisConfig.setAuthor(System.getProperty(ConstantCommand.USER_DIR));
         generateMybatisConfig.setPassword(password);
         generateMybatisConfig.setEntityLombokModel(true);
+        generateMybatisConfig.setFileOverride(false);
+        generateMybatisConfig.setTablePrefix("");
+        generateMybatisConfig.setFieldPrefix("");
         generateMybatisConfig.setProjectPath(FileUtil.getProjectPath());
-        String mainPath = System.getProperty("sun.java.command");
-        if(!StringUtils.isEmpty(mainPath)) {
+        String mainPath = System.getProperty(ConstantCommand.MAIN_CLASS_PATH);
+        if (!StringUtils.isEmpty(mainPath)) {
             int index = mainPath.lastIndexOf(".");
-            if(index > 0) {
+            if (index > 0) {
                 mainPath = mainPath.substring(0, index);
             }
             generateMybatisConfig.setPackageParentName(mainPath);
         }
 
-        Connection connection = null;
-        try {
-            DataSource bean = configurableListableBeanFactory.getBean(DataSource.class);
-            connection = bean.getConnection();
-            DatabaseMetaData metaData = connection.getMetaData();
-            generateMybatisConfig.setUrl(metaData.getURL());
-            generateMybatisConfig.setJdbcDrive("com.mysql.jdbc.Driver");
-            generateMybatisConfig.setUserName(metaData.getUserName());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            if(connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+
+        generateMybatisConfig.setUrl(url);
+        generateMybatisConfig.setJdbcDrive(driverClassName);
+        generateMybatisConfig.setUserName(username);
 
 
         return generateMybatisConfig;
     }
 
-
-
     public List<MybatisPlusAutoGeneratorConfig> getMybatisPlusAutoGeneratorConfigs() {
-        if(mybatisPlusAutoGeneratorConfigs == null) {
+        if (mybatisPlusAutoGeneratorConfigs == null) {
             synchronized (MybatisPlusAutoGeneratorConfig.class) {
-                if(mybatisPlusAutoGeneratorConfigs == null) {
+                if (mybatisPlusAutoGeneratorConfigs == null) {
                     Map<String, MybatisPlusAutoGeneratorConfig> beanMap = configurableListableBeanFactory.getBeansOfType(MybatisPlusAutoGeneratorConfig.class);
                     mybatisPlusAutoGeneratorConfigs = beanMap.values().stream().collect(Collectors.toList());
                 }

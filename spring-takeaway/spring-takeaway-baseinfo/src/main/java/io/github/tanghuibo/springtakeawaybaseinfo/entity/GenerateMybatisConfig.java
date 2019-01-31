@@ -56,4 +56,19 @@ public class GenerateMybatisConfig {
      * 使用lombok
      */
     private Boolean entityLombokModel;
+
+    /**
+     * 是否覆盖文件
+     */
+    private Boolean fileOverride;
+
+    /**
+     * 表前缀
+     */
+    private String tablePrefix;
+
+    /**
+     * 字段前缀
+     */
+    private String fieldPrefix;
 }

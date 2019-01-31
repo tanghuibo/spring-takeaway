@@ -27,4 +27,10 @@ public interface DataBaseInfoService {
      * @return
      */
     List<SqlFieldInfo> getFields(String tableName) throws SQLException;
+
+    /**
+     * 获取支持数据库列表
+     * @return
+     */
+    List<String> getDbDriverList();
 }

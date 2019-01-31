@@ -1,9 +1,15 @@
 package io.github.tanghuibo.springtakeawaybaseinfo.service.impl;
 
+import com.baomidou.mybatisplus.generator.config.IDbQuery;
+import static com.baomidou.mybatisplus.annotation.DbType.*;
+
+import io.github.tanghuibo.springtakeawaybaseinfo.util.DbTypeUtil;
+import io.github.tanghuibo.springtakeawaybaseinfo.config.DbType;
 import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.SqlFieldInfo;
 import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.TableInfo;
+import io.github.tanghuibo.springtakeawaybaseinfo.exception.SpringTakeawayException;
 import io.github.tanghuibo.springtakeawaybaseinfo.service.DataBaseInfoService;
-import io.github.tanghuibo.springtakeawaybaseinfo.service.DatabasetTanslateService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -11,7 +17,6 @@ import org.springframework.stereotype.Service;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * @description:数据库基本信息serviceImpl
@@ -21,6 +26,9 @@ import java.util.stream.Collectors;
 @Service("dataBaseInfoService")
 @Lazy
 public class DataBaseInfoServiceImpl implements DataBaseInfoService {
+
+    @Value("${spring.datasource.driver-class-name:}")
+    private String driverClassName;
 
     /**
      * 数据库连接池
@@ -32,15 +40,6 @@ public class DataBaseInfoServiceImpl implements DataBaseInfoService {
      */
     private ConfigurableListableBeanFactory configurableListableBeanFactory;
 
-    /**
-     * 数据库翻译机集合
-     */
-    private volatile List<DatabasetTanslateService> databasetTanslateServices;
-
-    /**
-     * 当前数据库翻译机
-     */
-    private volatile DatabasetTanslateService databasetTanslateService;
 
 
     /**
@@ -63,8 +62,34 @@ public class DataBaseInfoServiceImpl implements DataBaseInfoService {
     public List<TableInfo> getTables() throws SQLException {
         Connection connection = dataSource.getConnection();
         try {
-            DatabasetTanslateService databasetTanslateService = getMatchDatabasetTanslateService(connection);
-            return databasetTanslateService.getTableList(connection);
+            DbType dbType = DbTypeUtil.getDbTypeByDriverClassName(driverClassName, connection.getClass().getName());
+            if(dbType == null) {
+                throw new SpringTakeawayException("请在配置文件中设置 spring.datasource.driver-class-name");
+            }
+            IDbQuery dbQuery =dbType.getiDbQuery();
+
+            String tablesSql = dbQuery.tablesSql();
+            String schema = connection.getMetaData().getSchemaTerm();
+            if (POSTGRE_SQL == dbQuery.dbType()) {
+
+                tablesSql = String.format(tablesSql, schema);
+            }
+
+            if (ORACLE == dbQuery.dbType()) {
+                tablesSql = String.format(tablesSql, schema);
+            }
+
+            PreparedStatement preparedStatement = connection.prepareStatement(tablesSql);
+            ResultSet results = preparedStatement.executeQuery();
+            List<TableInfo> tableInfos = new ArrayList<>();
+            while (results.next()) {
+                TableInfo tableInfo = new TableInfo();
+                tableInfo.setTableName( results.getString(dbQuery.tableName()));
+                tableInfo.setComment( results.getString(dbQuery.tableComment()));
+                tableInfos.add(tableInfo);
+
+            }
+            return tableInfos;
         } finally {
             if(connection != null) {
                 connection.close();
@@ -76,8 +101,37 @@ public class DataBaseInfoServiceImpl implements DataBaseInfoService {
     public List<SqlFieldInfo> getFields(String tableName) throws SQLException {
         Connection connection = dataSource.getConnection();
         try {
-            DatabasetTanslateService databasetTanslateService = getMatchDatabasetTanslateService(connection);
-            return databasetTanslateService.getFields(connection, tableName);
+            DbType dbType = DbTypeUtil.getDbTypeByDriverClassName(driverClassName, connection.getClass().getName());
+            if(dbType == null) {
+                throw new SpringTakeawayException("请在配置文件中设置 spring.datasource.driver-class-name");
+            }
+            IDbQuery dbQuery = dbType.getiDbQuery();
+
+            String tableFieldsSql = dbQuery.tableFieldsSql();
+            String schema = connection.getMetaData().getSchemaTerm();
+            if (POSTGRE_SQL == dbQuery.dbType()) {
+                tableFieldsSql = String.format(tableFieldsSql, schema, tableName);
+            } else if (ORACLE == dbQuery.dbType()) {
+                tableFieldsSql = String.format(tableFieldsSql.replace("#schema", schema), tableName);
+            } else {
+                tableFieldsSql = String.format(tableFieldsSql, tableName);
+            }
+
+            PreparedStatement preparedStatement = connection.prepareStatement(tableFieldsSql);
+            ResultSet results = preparedStatement.executeQuery();
+
+            List<SqlFieldInfo> sqlFieldInfos = new ArrayList<>();
+            while (results.next()) {
+                SqlFieldInfo sqlFieldInfo = new SqlFieldInfo();
+                sqlFieldInfo.setFieldName(results.getString(dbQuery.fieldName()));
+                sqlFieldInfo.setDataType(results.getString(dbQuery.fieldType()));
+                sqlFieldInfo.setComment(results.getString(dbQuery.fieldComment()));
+                sqlFieldInfos.add(sqlFieldInfo);
+
+            }
+
+
+            return sqlFieldInfos;
         } finally {
             if(connection != null) {
                 connection.close();
@@ -86,48 +140,13 @@ public class DataBaseInfoServiceImpl implements DataBaseInfoService {
 
     }
 
-    /**
-     * 获取与connection匹配的数据库翻译机
-     * @param connection
-     * @return
-     */
-    private DatabasetTanslateService getMatchDatabasetTanslateService(Connection connection) {
-        if(databasetTanslateService == null) {
-            synchronized (this.getClass()) {
-                if(databasetTanslateService == null) {
-                    synchronized (this.getClass()) {
-                        List<DatabasetTanslateService> databasetTanslateServices = getDatabasetTanslateServices();
-                        for (DatabasetTanslateService databasetTanslateService: databasetTanslateServices) {
-                            if(databasetTanslateService.isMatching(connection)) {
-                                this.databasetTanslateService = databasetTanslateService;
-                                return this.databasetTanslateService;
-                            }
-                        }
-                    }
-                }
-            }
+    @Override
+    public List<String> getDbDriverList() {
+        DbType[] dbTypes = DbType.values();
+        List<String> result = new ArrayList<>();
+        for (DbType dbType:dbTypes) {
+            result.addAll(dbType.getDriverList());
         }
-        return databasetTanslateService;
-    }
-
-    /**
-     * 获取数据库翻译机集合
-     * @return
-     */
-    public List<DatabasetTanslateService> getDatabasetTanslateServices() {
-        if(databasetTanslateServices == null) {
-            synchronized (this.getClass()) {
-                if(databasetTanslateServices == null) {
-                    synchronized (this.getClass()) {
-                        Map<String, DatabasetTanslateService> beansOfType = configurableListableBeanFactory.getBeansOfType(DatabasetTanslateService.class);
-                        databasetTanslateServices = beansOfType.values().stream().collect(Collectors.toList());
-                        databasetTanslateServices.sort(Comparator.comparing(DatabasetTanslateService::getOrder));
-                    }
-
-                }
-
-            }
-        }
-        return databasetTanslateServices;
+        return result;
     }
 }
