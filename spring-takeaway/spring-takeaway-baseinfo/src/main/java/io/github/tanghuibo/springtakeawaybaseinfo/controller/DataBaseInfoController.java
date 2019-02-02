@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -22,6 +23,7 @@ import java.util.List;
 @RestController
 @RequestMapping(ConstantConfig.CONTENT_PATH + "/database")
 @Lazy
+@ApiIgnore
 public class DataBaseInfoController {
 
     DataBaseInfoService dataBaseInfoService;

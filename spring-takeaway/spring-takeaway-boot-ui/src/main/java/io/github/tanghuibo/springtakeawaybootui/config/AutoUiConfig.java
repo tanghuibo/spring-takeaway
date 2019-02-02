@@ -15,6 +15,6 @@ public class AutoUiConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/**").addResourceLocations("classpath:/META-INF/spring-takeaway-ui/");
+        registry.addResourceHandler("/spring-takeaway-ui/**").addResourceLocations("classpath:/META-INF/spring-takeaway-ui/");
     }
 }

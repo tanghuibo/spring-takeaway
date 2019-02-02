@@ -6,6 +6,7 @@ import io.github.tanghuibo.springtakeawaybaseinfo.config.ConstantConfig;
 import io.github.tanghuibo.springtakeawaybaseinfo.entity.GenerateMybatisConfig;
 import io.github.tanghuibo.springtakeawaybaseinfo.service.GeneratorCodeService;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * @description: mybatis代码自动生成controller
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
  **/
 @RestController
 @RequestMapping(ConstantConfig.CONTENT_PATH + "/mybatis-generator")
+@ApiIgnore
 public class GeneratorCodeController {
 
     private GeneratorCodeService generatorCodeService;

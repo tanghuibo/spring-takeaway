@@ -21,6 +21,9 @@
 		<lombok.version>1.18.4</lombok.version>
 		<freemarker.version>2.3.28</freemarker.version>
 		<mybatis-plus.version>3.0.3</mybatis-plus.version>
+		<springfox-swagger2.version>2.9.2</springfox-swagger2.version>
+		<swagger2markup.version>1.3.3</swagger2markup.version>
+		<pegdown.version>1.6.0</pegdown.version>
 	</properties>
 
 	<dependencies>
@@ -67,6 +70,41 @@
 			<version>${mybatis-plus.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>${springfox-swagger2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>${springfox-swagger2.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.github.swagger2markup</groupId>
+			<artifactId>swagger2markup</artifactId>
+			<version>${swagger2markup.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.pegdown/pegdown -->
+		<dependency>
+			<groupId>org.pegdown</groupId>
+			<artifactId>pegdown</artifactId>
+			<version>${pegdown.version}</version>
+
+		</dependency>
+
 	</dependencies>
+
+	<repositories>
+		<repository>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>jcenter-releases</id>
+			<name>jcenter</name>
+			<url>http://jcenter.bintray.com</url>
+		</repository>
+	</repositories>
 
 </project>
