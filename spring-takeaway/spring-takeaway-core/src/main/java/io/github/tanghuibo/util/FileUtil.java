@@ -82,4 +82,19 @@ public class FileUtil {
         return userDir + "\\src\\main\\java";
 
     }
+
+    /**
+     * 创建文件夹,若父类文件夹不存在则创建父类文件夹
+     * @param fileName
+     */
+    public static void mkDirAndParentDir(String fileName) {
+        File file = new File(fileName);
+        if(file.isDirectory()) {
+            return;
+        } else {
+            mkDirAndParentDir(file.getParent());
+            file.mkdir();
+        }
+
+    }
 }

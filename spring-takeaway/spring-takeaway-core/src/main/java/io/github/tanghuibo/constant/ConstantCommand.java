@@ -17,4 +17,9 @@ public class ConstantCommand {
      * 启动类位置
      */
     public static final String MAIN_CLASS_PATH = "sun.java.command";
+
+    /**
+     * 用户名
+     */
+    public static final String USER_NAME = "user.name";
 }

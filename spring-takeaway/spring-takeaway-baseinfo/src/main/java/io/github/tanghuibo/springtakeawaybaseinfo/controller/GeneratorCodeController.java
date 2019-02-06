@@ -3,10 +3,13 @@ package io.github.tanghuibo.springtakeawaybaseinfo.controller;
 import io.github.tanghuibo.result.entity.Result;
 import io.github.tanghuibo.result.util.ResultTool;
 import io.github.tanghuibo.springtakeawaybaseinfo.config.ConstantConfig;
+import io.github.tanghuibo.springtakeawaybaseinfo.entity.GenerateJsonToJavaConfig;
 import io.github.tanghuibo.springtakeawaybaseinfo.entity.GenerateMybatisConfig;
+import io.github.tanghuibo.springtakeawaybaseinfo.entity.dto.JavaEntityInfo;
 import io.github.tanghuibo.springtakeawaybaseinfo.service.GeneratorCodeService;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
+import java.util.List;
 
 /**
  * @description: mybatis代码自动生成controller
@@ -14,7 +17,7 @@ import springfox.documentation.annotations.ApiIgnore;
  * @create: 2019-01-30 23:03
  **/
 @RestController
-@RequestMapping(ConstantConfig.CONTENT_PATH + "/mybatis-generator")
+@RequestMapping(ConstantConfig.CONTENT_PATH + "/generator")
 @ApiIgnore
 public class GeneratorCodeController {
 
@@ -35,6 +38,16 @@ public class GeneratorCodeController {
     }
 
     /**
+     * 获取默认配置信息
+     * @return
+     */
+    @GetMapping("default-generate-json-to-java-config")
+    public Result<GenerateJsonToJavaConfig> getDefaultGenerateJsonToJavaConfig() {
+        GenerateJsonToJavaConfig generateJsonToJavaConfig = generatorCodeService.getDefaultGenerateJsonToJavaConfig();
+        return ResultTool.successData(generateJsonToJavaConfig);
+    }
+
+    /**
      * 生成mybatis代码
      * @param generateMybatisConfig
      * @return
@@ -44,4 +57,17 @@ public class GeneratorCodeController {
         generatorCodeService.generatorMybatisCode(generateMybatisConfig);
         return ResultTool.success();
     }
+
+    /**
+     * 生成java代码
+     * @param javaEntityInfoList
+     * @return
+     */
+    @PostMapping("generate-json-to-java")
+    public Result generatoJsonToJavaCode(@RequestBody List<JavaEntityInfo> javaEntityInfoList) {
+        generatorCodeService.generatoJsonToJavaCode(javaEntityInfoList);
+        return ResultTool.success();
+    }
+
+
 }

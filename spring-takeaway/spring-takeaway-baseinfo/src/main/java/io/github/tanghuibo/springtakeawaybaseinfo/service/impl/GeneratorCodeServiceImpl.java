@@ -4,15 +4,28 @@ import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
 import io.github.tanghuibo.constant.ConstantCommand;
+import io.github.tanghuibo.springtakeawaybaseinfo.entity.GenerateJsonToJavaConfig;
 import io.github.tanghuibo.springtakeawaybaseinfo.entity.GenerateMybatisConfig;
+import io.github.tanghuibo.springtakeawaybaseinfo.entity.dto.JavaEntityInfo;
+import io.github.tanghuibo.springtakeawaybaseinfo.exception.SpringTakeawayException;
 import io.github.tanghuibo.springtakeawaybaseinfo.service.GeneratorCodeService;
 import io.github.tanghuibo.springtakeawaybaseinfo.service.MybatisPlusAutoGeneratorConfig;
 import io.github.tanghuibo.util.FileUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -43,15 +56,21 @@ public class GeneratorCodeServiceImpl implements GeneratorCodeService {
      */
     private ConfigurableListableBeanFactory configurableListableBeanFactory;
 
+
+    private Configuration configuration;
+
     /**
      * mybatisPlusAutoGeneratorConfig
      * 用于处理AutoGenerator
+     *
      * @see AutoGenerator
      */
     private volatile List<MybatisPlusAutoGeneratorConfig> mybatisPlusAutoGeneratorConfigs;
 
-    public GeneratorCodeServiceImpl(ConfigurableListableBeanFactory configurableListableBeanFactory) {
+    public GeneratorCodeServiceImpl(@Lazy ConfigurableListableBeanFactory configurableListableBeanFactory,
+                                    @Lazy Configuration configuration) {
         this.configurableListableBeanFactory = configurableListableBeanFactory;
+        this.configuration = configuration;
     }
 
     @Override
@@ -103,21 +122,14 @@ public class GeneratorCodeServiceImpl implements GeneratorCodeService {
     @Override
     public GenerateMybatisConfig getDefaultGenerateMybatisConfig() {
         GenerateMybatisConfig generateMybatisConfig = new GenerateMybatisConfig();
-        generateMybatisConfig.setAuthor(System.getProperty(ConstantCommand.USER_DIR));
+        generateMybatisConfig.setAuthor(System.getProperty(ConstantCommand.USER_NAME));
         generateMybatisConfig.setPassword(password);
         generateMybatisConfig.setEntityLombokModel(true);
         generateMybatisConfig.setFileOverride(false);
         generateMybatisConfig.setTablePrefix("");
         generateMybatisConfig.setFieldPrefix("");
         generateMybatisConfig.setProjectPath(FileUtil.getProjectPath());
-        String mainPath = System.getProperty(ConstantCommand.MAIN_CLASS_PATH);
-        if (!StringUtils.isEmpty(mainPath)) {
-            int index = mainPath.lastIndexOf(".");
-            if (index > 0) {
-                mainPath = mainPath.substring(0, index);
-            }
-            generateMybatisConfig.setPackageParentName(mainPath);
-        }
+        generateMybatisConfig.setPackageParentName(getMainClassPath());
 
 
         generateMybatisConfig.setUrl(url);
@@ -126,6 +138,79 @@ public class GeneratorCodeServiceImpl implements GeneratorCodeService {
 
 
         return generateMybatisConfig;
+    }
+
+    @Override
+    public GenerateJsonToJavaConfig getDefaultGenerateJsonToJavaConfig() {
+        GenerateJsonToJavaConfig generateJsonToJavaConfig = new GenerateJsonToJavaConfig();
+        generateJsonToJavaConfig.setEntityLombokModel(true);
+
+        generateJsonToJavaConfig.setPackageParentName(getMainClassPath());
+
+        generateJsonToJavaConfig.setProjectPath(FileUtil.getProjectPath());
+        generateJsonToJavaConfig.setAuthor(System.getProperty(ConstantCommand.USER_NAME));
+
+        return generateJsonToJavaConfig;
+
+    }
+
+    @Override
+    public void generatoJsonToJavaCode(List<JavaEntityInfo> javaEntityInfoList) {
+        for (JavaEntityInfo javaEntityInfo:javaEntityInfoList) {
+            generatoJsonToJavaCode(javaEntityInfo);
+
+        }
+    }
+
+    private void generatoJsonToJavaCode(JavaEntityInfo javaEntityInfo) {
+        String packageName = javaEntityInfo.getPackageName();
+        String dirName = javaEntityInfo.getProjectPath() + "\\" + packageName.replace('.', '\\');
+        String fileName = dirName + "\\" + javaEntityInfo.getClassName() + ".java";
+        FileUtil.mkDirAndParentDir(dirName);
+        Template template = null;
+        try {
+            template = configuration.getTemplate("entity.java.ftl");
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new SpringTakeawayException("freemarker模板获取失败");
+        }
+        Writer out = null;
+        try {
+            out = new FileWriter(fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new SpringTakeawayException("写入文件失败");
+        }
+        try {
+            template.process(javaEntityInfo, out);
+        } catch (TemplateException e) {
+            e.printStackTrace();
+            throw new SpringTakeawayException("freemarker模板格式有误");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if(out != null) {
+                try {
+                    out.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+        }
+
+    }
+
+    private String getMainClassPath() {
+        String mainPath = System.getProperty(ConstantCommand.MAIN_CLASS_PATH);
+        if (!StringUtils.isEmpty(mainPath)) {
+            int index = mainPath.lastIndexOf(".");
+            if (index > 0) {
+                return mainPath.substring(0, index);
+            }
+        }
+        return null;
     }
 
     public List<MybatisPlusAutoGeneratorConfig> getMybatisPlusAutoGeneratorConfigs() {

@@ -1,5 +1,6 @@
 package io.github.tanghuibo.springtakeawaybaseinfo.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -13,5 +14,22 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @ComponentScan(value = {"io.github.tanghuibo.springtakeawaybaseinfo"})
 @EnableSwagger2
 public class AutoBaseInfoConfig {
+
+    /**
+     * 生成freemark config
+     * @return
+     */
+    @Bean("freemarkerConfiguration")
+    public freemarker.template.Configuration getFreemarkerConfiguration() {
+        freemarker.template.Configuration configuration
+                = new freemarker.template.Configuration(freemarker.template.Configuration.VERSION_2_3_28);
+
+
+        configuration.setClassForTemplateLoading(AutoBaseInfoConfig.class, "/META-INF/templates");
+
+
+        return configuration;
+
+    }
 
 }
