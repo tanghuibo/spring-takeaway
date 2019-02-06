@@ -53,15 +53,18 @@ public class SpringBaseInfoServiceImpl implements SpringBaseInfoService {
         while (iterator.hasNext()) {
             PropertySource<?> next = iterator.next();
             Object source = next.getSource();
-            if (source instanceof LinkedHashMap) {
+            if (source instanceof Map) {
                 Map<String, Object> map = (Map) source;
                 Set<String> keySet = map.keySet();
                 for (String key : keySet) {
                     Object value = map.get(key);
                     result.put(key, value.toString());
-
                 }
             }
+        }
+        Set<String> keys = System.getProperties().stringPropertyNames();
+        for (String key: keys) {
+            result.remove(key);
         }
         return result;
     }
