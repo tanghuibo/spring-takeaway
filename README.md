@@ -8,7 +8,7 @@
 + 获取已加载的jar包
 + 获取已加载的class （非bootstrap classload加载）
 + spring配置信息
-+ spring容器中的实力
++ spring容器中的实例对象
 + 数据库基本信息查看
 + 通过数据库实体信息生成mybatis plus代码
 + 生成接口文档
