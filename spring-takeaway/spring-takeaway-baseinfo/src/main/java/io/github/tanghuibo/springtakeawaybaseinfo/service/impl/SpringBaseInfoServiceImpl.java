@@ -2,6 +2,7 @@ package io.github.tanghuibo.springtakeawaybaseinfo.service.impl;
 
 import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.SpringBeanInfo;
 import io.github.tanghuibo.springtakeawaybaseinfo.service.SpringBaseInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.core.env.*;
@@ -22,7 +23,7 @@ public class SpringBaseInfoServiceImpl implements SpringBaseInfoService {
 
     private StandardEnvironment environment;
 
-    public SpringBaseInfoServiceImpl(StandardEnvironment standardEnvironment,@Lazy ConfigurableListableBeanFactory beanFactory) {
+    public SpringBaseInfoServiceImpl(StandardEnvironment standardEnvironment,@Autowired(required = false) ConfigurableListableBeanFactory beanFactory) {
         this.environment = standardEnvironment;
         this.beanFactory = beanFactory;
     }

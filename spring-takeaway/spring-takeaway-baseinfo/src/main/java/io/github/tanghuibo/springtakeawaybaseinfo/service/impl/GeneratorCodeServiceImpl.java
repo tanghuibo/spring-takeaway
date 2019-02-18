@@ -15,9 +15,8 @@ import io.github.tanghuibo.springtakeawaybaseinfo.exception.SpringTakeawayExcept
 import io.github.tanghuibo.springtakeawaybaseinfo.service.GeneratorCodeService;
 import io.github.tanghuibo.springtakeawaybaseinfo.service.MybatisPlusAutoGeneratorConfig;
 import io.github.tanghuibo.util.FileUtil;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -51,12 +50,8 @@ public class GeneratorCodeServiceImpl implements GeneratorCodeService {
     private String url;
 
 
-    /**
-     * bean容器
-     */
-    private ConfigurableListableBeanFactory configurableListableBeanFactory;
 
-
+    private Map<String, MybatisPlusAutoGeneratorConfig> mybatisPlusAutoGeneratorConfigMap;
     private Configuration configuration;
 
     /**
@@ -67,9 +62,9 @@ public class GeneratorCodeServiceImpl implements GeneratorCodeService {
      */
     private volatile List<MybatisPlusAutoGeneratorConfig> mybatisPlusAutoGeneratorConfigs;
 
-    public GeneratorCodeServiceImpl(@Lazy ConfigurableListableBeanFactory configurableListableBeanFactory,
-                                    @Lazy Configuration configuration) {
-        this.configurableListableBeanFactory = configurableListableBeanFactory;
+    public GeneratorCodeServiceImpl(Map<String, MybatisPlusAutoGeneratorConfig> mybatisPlusAutoGeneratorConfigMap,
+                                    @Qualifier("javaCodeGeneratorConfiguration") Configuration configuration) {
+        this.mybatisPlusAutoGeneratorConfigMap = mybatisPlusAutoGeneratorConfigMap;
         this.configuration = configuration;
     }
 
@@ -217,8 +212,7 @@ public class GeneratorCodeServiceImpl implements GeneratorCodeService {
         if (mybatisPlusAutoGeneratorConfigs == null) {
             synchronized (MybatisPlusAutoGeneratorConfig.class) {
                 if (mybatisPlusAutoGeneratorConfigs == null) {
-                    Map<String, MybatisPlusAutoGeneratorConfig> beanMap = configurableListableBeanFactory.getBeansOfType(MybatisPlusAutoGeneratorConfig.class);
-                    mybatisPlusAutoGeneratorConfigs = beanMap.values().stream().collect(Collectors.toList());
+                    mybatisPlusAutoGeneratorConfigs = mybatisPlusAutoGeneratorConfigMap.values().stream().collect(Collectors.toList());
                 }
             }
         }

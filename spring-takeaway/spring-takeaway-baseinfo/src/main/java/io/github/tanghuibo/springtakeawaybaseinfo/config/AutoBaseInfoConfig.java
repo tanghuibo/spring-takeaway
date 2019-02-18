@@ -19,7 +19,7 @@ public class AutoBaseInfoConfig {
      * 生成freemark config
      * @return
      */
-    @Bean("freemarkerConfiguration")
+    @Bean("javaCodeGeneratorConfiguration")
     public freemarker.template.Configuration getFreemarkerConfiguration() {
         freemarker.template.Configuration configuration
                 = new freemarker.template.Configuration(freemarker.template.Configuration.VERSION_2_3_28);

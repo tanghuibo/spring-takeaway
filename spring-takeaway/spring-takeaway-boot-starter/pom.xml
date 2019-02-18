@@ -6,37 +6,19 @@
 
     <groupId>io.github.tanghuibo</groupId>
     <artifactId>spring-takeaway-boot-starter</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${parent.version}</version>
+
+    <parent>
+        <groupId>io.github.tanghuibo</groupId>
+        <artifactId>spring-takeaway-dependencies</artifactId>
+        <version>0.0.2-SNAPSHOT</version>
+        <relativePath>../spring-takeaway-dependencies</relativePath>
+    </parent>
 
     <name>spring-takeaway-boot-starter</name>
     <description>spring takeaway boot starter</description>
 
-
-    <url>https://github.com/tanghuibo/spring-takeaway</url>
-
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-        </license>
-    </licenses>
-
-    <developers>
-        <developer>
-            <name>huibotang</name>
-            <email>aa18984850147@qq.com</email>
-            <url>https://github.com/tanghuibo/spring-takeaway</url>
-            <timezone>+8</timezone>
-        </developer>
-    </developers>
-
-    <scm>
-        <url>git@github.com:tanghuibo/spring-takeaway.git</url>
-    </scm>
-
     <properties>
-        <spring-takeaway-baseinfo.version>0.0.1-SNAPSHOT</spring-takeaway-baseinfo.version>
-        <spring-takeaway-ui.version>0.0.1-SNAPSHOT</spring-takeaway-ui.version>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -47,64 +29,15 @@
         <dependency>
             <groupId>io.github.tanghuibo</groupId>
             <artifactId>spring-takeaway-baseinfo</artifactId>
-            <version>${spring-takeaway-baseinfo.version}</version>
+            <version>${parent.version}</version>
         </dependency>
 
         <dependency>
             <groupId>io.github.tanghuibo</groupId>
             <artifactId>spring-takeaway-boot-ui</artifactId>
-            <version>${spring-takeaway-ui.version}</version>
+            <version>${parent.version}</version>
         </dependency>
     </dependencies>
-
-    <profiles>
-        <profile>
-            <id>release</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <version>2.3</version>
-                        <executions>
-                            <execution>
-                                <id>attach-sources</id>
-                                <goals>
-                                    <goal>jar-no-fork</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <attach>true</attach>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.5</version>
-                        <executions>
-                            <execution>
-                                <phase>install</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
-    <distributionManagement>
-        <snapshotRepository>
-            <id>oss</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-        </snapshotRepository>
-        <repository>
-            <id>oss</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
 
     
 </project>

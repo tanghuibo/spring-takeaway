@@ -7,6 +7,7 @@ import io.github.tanghuibo.springtakeawaybaseinfo.entity.GenerateJsonToJavaConfi
 import io.github.tanghuibo.springtakeawaybaseinfo.entity.GenerateMybatisConfig;
 import io.github.tanghuibo.springtakeawaybaseinfo.entity.dto.JavaEntityInfo;
 import io.github.tanghuibo.springtakeawaybaseinfo.service.GeneratorCodeService;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 import java.util.List;
@@ -23,7 +24,7 @@ public class GeneratorCodeController {
 
     private GeneratorCodeService generatorCodeService;
 
-    public GeneratorCodeController(GeneratorCodeService generatorCodeService) {
+    public GeneratorCodeController(@Lazy GeneratorCodeService generatorCodeService) {
         this.generatorCodeService = generatorCodeService;
     }
 

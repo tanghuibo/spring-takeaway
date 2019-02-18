@@ -9,8 +9,8 @@ import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.SqlFieldInfo;
 import io.github.tanghuibo.springtakeawaybaseinfo.entity.vo.TableInfo;
 import io.github.tanghuibo.springtakeawaybaseinfo.exception.SpringTakeawayException;
 import io.github.tanghuibo.springtakeawaybaseinfo.service.DataBaseInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
@@ -35,21 +35,16 @@ public class DataBaseInfoServiceImpl implements DataBaseInfoService {
      */
     private DataSource dataSource;
 
-    /**
-     * bean容器
-     */
-    private ConfigurableListableBeanFactory configurableListableBeanFactory;
 
 
 
     /**
      * 构造器
      * @param dataSource
-     * @param configurableListableBeanFactory
      */
-    public DataBaseInfoServiceImpl(@Lazy DataSource dataSource,@Lazy ConfigurableListableBeanFactory configurableListableBeanFactory) {
+    public DataBaseInfoServiceImpl(@Autowired(required = false) DataSource dataSource) {
         this.dataSource = dataSource;
-        this.configurableListableBeanFactory = configurableListableBeanFactory;
+
 
     }
 
