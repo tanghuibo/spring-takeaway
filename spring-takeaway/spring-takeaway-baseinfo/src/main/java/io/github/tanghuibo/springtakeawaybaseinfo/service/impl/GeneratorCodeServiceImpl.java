@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -159,8 +160,8 @@ public class GeneratorCodeServiceImpl implements GeneratorCodeService {
 
     private void generatoJsonToJavaCode(JavaEntityInfo javaEntityInfo) {
         String packageName = javaEntityInfo.getPackageName();
-        String dirName = javaEntityInfo.getProjectPath() + "\\" + packageName.replace('.', '\\');
-        String fileName = dirName + "\\" + javaEntityInfo.getClassName() + ".java";
+        String dirName = javaEntityInfo.getProjectPath() + File.separatorChar + packageName.replace('.', File.separatorCharChar);
+        String fileName = dirName + File.separatorChar + javaEntityInfo.getClassName() + ".java";
         FileUtil.mkDirAndParentDir(dirName);
         Template template = null;
         try {
