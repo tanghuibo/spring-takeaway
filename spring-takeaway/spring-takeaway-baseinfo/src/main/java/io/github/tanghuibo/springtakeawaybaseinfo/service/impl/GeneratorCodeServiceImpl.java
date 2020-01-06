@@ -158,7 +158,7 @@ public class GeneratorCodeServiceImpl implements GeneratorCodeService {
 
     private void generatoJsonToJavaCode(JavaEntityInfo javaEntityInfo) {
         String packageName = javaEntityInfo.getPackageName();
-        String dirName = javaEntityInfo.getProjectPath() + File.separatorChar + packageName.replace('.', File.separatorCharChar);
+        String dirName = javaEntityInfo.getProjectPath() + File.separatorChar + packageName.replace(".", File.separator);
         String fileName = dirName + File.separatorChar + javaEntityInfo.getClassName() + ".java";
         FileUtil.mkDirAndParentDir(dirName);
         Template template = null;
