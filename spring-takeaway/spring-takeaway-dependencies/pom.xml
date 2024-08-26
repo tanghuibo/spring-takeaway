@@ -15,7 +15,7 @@
         <lombok.version>1.18.4</lombok.version>
         <freemarker.version>2.3.28</freemarker.version>
         <mybatis-plus-generator.version>3.0.3</mybatis-plus-generator.version>
-        <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
+        <springfox-swagger2.version>2.10.0</springfox-swagger2.version>
         <swagger2markup.version>1.3.3</swagger2markup.version>
         <pegdown.version>1.6.0</pegdown.version>
         <spring-boot-starter-web.version>2.1.2.RELEASE</spring-boot-starter-web.version>
